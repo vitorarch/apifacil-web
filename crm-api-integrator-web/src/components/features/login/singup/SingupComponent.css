@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    box-sizing: border-box;
+    justify-content: center;
+    height: 40rem;
+    margin-top: 10vh;
+}
+
+.login-tab {
+    display: flex;
+    width: 20rem;
+}
+
+.card {
+    width: 45rem;
+    justify-items: center;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.divImage {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.image {
+   width: 100%; 
+   top: 1rem;
+   width: 16rem;
+   height: 10rem;
+}
+
+.form {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-gap: 20px;
+}
+
+.formLabelSingup {
+    width: 17rem;
+}
+
+.inputSingup {
+    width: 17rem;
+}
+
+.login-cardFooter {
+    display: flex;
+    justify-content: space-around;
+    margin: 0 20px 20px 20px;
+}
+
+.login-buttonGroup {
+    display: flex;
+    justify-content: space-around
+}

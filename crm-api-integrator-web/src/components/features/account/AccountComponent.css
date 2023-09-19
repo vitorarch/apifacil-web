@@ -1,0 +1,65 @@
+.container {
+    width: 80rem;
+    height: 47rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid {
+    width: 85%;
+    height: 85%;
+}
+
+.gridItem {
+    border-radius: 15px;
+    box-shadow: 1px 1px 7px rgba(223, 223, 223, 0.9);
+    padding: 20px;
+}
+
+
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0  0.5rem 0;
+}
+
+.formLabels {
+    margin-left: 0.5rem;
+    color: gray;
+    font-weight: 450;
+    
+}
+
+.header {
+    color: #0088CC;
+}
+
+.userAccess {
+    width: auto; /* Defina a largura desejada */
+    height: 7.5rem;
+    border: 1px solid rgb(230, 230, 230);
+    border-radius: 5px; /* Adicione uma borda apenas para visualização */
+    padding: 5px;
+    overflow-y: auto; /* Adiciona uma barra de rolagem horizontal quando o conteúdo ultrapassa a largura */
+    white-space: normal; /* Define como quebrar as palavras */
+}
+
+div::-webkit-scrollbar {
+    width: 6px; /* Largura da barra de rolagem */
+}
+  
+div::-webkit-scrollbar-thumb {
+    background-color: #0088CC; /* Cor do botão (alça) da barra de rolagem */
+    border-radius: 6px; /* Borda arredondada do botão da barra de rolagem */
+}
+  
+div::-webkit-scrollbar-thumb:hover {
+    background-color: #006da3; /* Cor do botão da barra de rolagem ao passar o mouse */
+}
+
+.link {
+    font-size: inherit;
+    font-family: inherit;
+}

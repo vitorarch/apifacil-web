@@ -1,0 +1,62 @@
+.container {
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    border: 1px solid rgba(22, 22, 22, 0);
+    border-radius: 10px;
+}
+
+.containerAccount{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.accountHeader {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 10px;
+    top: 20px;
+}
+
+.createIntegrationForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two equal columns */
+    grid-gap: 20px;
+}
+
+.hideInputGroup {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two equal columns */
+    grid-gap: 5px;
+}
+
+.hideInput {
+    width: 100%; /* Espaço para acomodar o botão */
+}
+
+
+.hideInputButton {
+    position: absolute;
+    right: 1px; /* Ajuste a posição conforme necessário */
+}
+
+.createIntegrationButton {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    flex-direction: row;
+    padding: 10px;
+    margin-right: 27rem;
+    margin-left: 27rem;
+}
+
+.usersAccessRights {
+    width: 100%;
+    display: flexbox;
+    padding: 7px;
+    border: 1px solid rgb(236, 236, 236);
+    border-radius: 5px;
+}

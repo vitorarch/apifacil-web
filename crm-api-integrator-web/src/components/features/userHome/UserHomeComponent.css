@@ -1,0 +1,36 @@
+.teste {
+    padding: 15px;
+    height: 24rem;
+}
+
+.infoCard {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(231, 231, 231);
+}
+
+.userHomeHeader {
+    display: flex;
+    flex-direction: column;
+}
+
+.userHomeHeaderButtons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.userInfo {
+    text-align: center;
+}
+
+.answerText {
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.endpointsCard {
+    box-shadow: 0px 0px 10px rgb(231, 231, 231);
+}
