@@ -127,9 +127,9 @@ const SinginComponent = () => {
                 variant="solid"
                 colorScheme="teal"
                 isLoading={isLoading}
-                loadingText="Entrando..."
+                loadingText="Logging In"
               >
-                {isLoading ? 'Logging In' : 'Login'}
+                Login
               </Button>
             </ButtonGroup>
           </CardFooter>
