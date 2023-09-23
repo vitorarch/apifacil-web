@@ -1,8 +1,8 @@
 import { Box, Button, ButtonGroup, Card, Heading, Input, Text } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
-import passRecoveryCss from "./PassRecovery.css";
+import passwordResetCss from "./PasswordReset.css";
 
-export default function PassRecoveryComponent() {
+export default function SendEmail() {
   const [email, setEmail] = useState('');
   const [loadingTime, setLoadingTime] = useState<number | null>(null);
   const [contadorIniciado, setContadorIniciado] = useState<boolean>(false);
@@ -12,7 +12,7 @@ export default function PassRecoveryComponent() {
   };
   const sendEmail = () => {
     setIsLoading(true);
-    setLoadingTime(10); // Iniciar a contagem regressiva com 60 segundos
+    setLoadingTime(60); // Iniciar a contagem regressiva com 60 segundos
     setContadorIniciado(true);
   }
 
@@ -41,19 +41,19 @@ export default function PassRecoveryComponent() {
   }, [loadingTime, contadorIniciado]);
 
   return (
-    <Box className={ passRecoveryCss.container }>
-      <Card className=" p-8 w-[600px] flex flex-col items-center">
-        <Heading  className=" w-full text-center mb-5">Recuperação de Senha</Heading>
+    <Box className={ passwordResetCss.container }>
+      <Card className={passwordResetCss.card}>
+        <Heading  className={passwordResetCss.header}>Recuperação de Senha</Heading>
         <Text>Perdeu sua senha? Não se preocupe, estamos aqui para ajudar!</Text>
         <Text>Por favor, siga estas etapas simples:</Text>
         <br/>
         <Text>1. Insira seu endereço de email registrado.</Text>
         <Text>2. Enviaremos um link de redefinição de senha para o seu email.</Text>
         <Text>3. Clique no link e siga as instruções para criar uma nova senha segura.</Text>
-        <div className=" w-[350px] my-5" >
+        <div className={ passwordResetCss.limit + " my-5" } >
           <Input onChange={handleEmail} placeholder="example@gmail.com" />
         </div>
-        <ButtonGroup spacing={2} className=" w-[350px]">
+        <ButtonGroup spacing={2} className={passwordResetCss.limit}>
           <Button
             onClick={ () => sendEmail() }
             variant="solid"

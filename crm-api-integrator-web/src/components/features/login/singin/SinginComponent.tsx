@@ -8,13 +8,11 @@ import {
   FormLabel,
   Input,
   Image,
-  Spinner,
   Heading,
   Stack,
   Text,
   Button,
   ButtonGroup,
-  Progress,
   InputRightElement,
   InputGroup,
   useToast,
@@ -23,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { authenticate } from "../../../../services/loginService/loginService";
 import { UserResponse } from "../../../../services/models/login/responses/userResponse";
 import singinCss from "./Singin.css";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const SinginComponent = () => {
   const [email, setEmail] = useState<string>('');
@@ -71,7 +70,7 @@ const SinginComponent = () => {
         />
         <InputRightElement width='4.5rem'>
           <Button h='1.75rem' size='sm' onClick={handleShowPassword}>
-            {show ? 'Hide' : 'Show'}
+            {show ? <IoEyeOffOutline size={23} /> : <IoEyeOutline size={23} />}
           </Button>
         </InputRightElement>
       </InputGroup>
@@ -115,9 +114,15 @@ const SinginComponent = () => {
                 <FormLabel className={singinCss.loginLabel}>Senha</FormLabel>
                 { PasswordInput() }
               </FormControl>
-              <Text color="blue.600">
-                Esqueceu a senha? <br />
+              <Text className=" cursor-pointer hover:text-teal-700 underline underline-offset-2 w-[150px]" onClick={() => navigate("/reset-password")}>
+                Esqueceu a senha?
               </Text>
+              <div className=" flex gap-2">
+                <Text>Não possui conta?</Text>
+                <Text className=" cursor-pointer hover:text-teal-700 underline underline-offset-2"  onClick={() => navigate("/singup")}>
+                  Registre-se agora
+                </Text>
+              </div>
             </Stack>
           </CardBody>
           <CardFooter className={singinCss.loginFooter}>

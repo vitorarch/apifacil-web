@@ -10,7 +10,8 @@ import RetryIntegrationComponent from "./components/features/integration/RetryIn
 import ConfirmEmailComponent from "./components/features/confirmEmail/ConfirmEmailComponent";
 import HowToComponent from "./components/features/howTo/HowToComponent";
 import Header from "./components/features/header/header";
-import PassRecoveryComponent from "./components/features/passRecovery/PassRecoveryComponent";
+import SendEmail from "./components/features/passRecovery/SendEmailComponent";
+import PasswordReset from "./components/features/passRecovery/PasswordResetComponent";
 
 const App: React.FC = () => {
 
@@ -39,8 +40,8 @@ const App: React.FC = () => {
           <Route path="/home" element={<UserHomeComponent/>} />
           <Route path="/singin" element={<SinginComponent />} />
           <Route path="/singup" element={<SingupComponent/>} />
-          <Route path="/recovery" element={ <PassRecoveryComponent /> } />
-          <Route path="/confirm-password" element={<ConfirmEmailComponent/>} />
+          <Route path="/reset-password" element={ <SendEmail /> } />
+          <Route path="/reset-password/:id" element={ <PasswordReset /> } />
         </Routes>
       </Router>
     </ChakraProvider>
