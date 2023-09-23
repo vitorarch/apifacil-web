@@ -20,7 +20,6 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { ChangeEvent, useState } from "react";
-import "./SingupComponent.css";
 import { register } from "../../../../services/loginService/loginService";
 import { BaseResponse } from "../../../../services/models/base/baseResponse";
 import { UserResponse } from "../../../../services/models/login/responses/userResponse";
@@ -29,6 +28,7 @@ import {
   Error,
 } from "../../../../services/models/base/errorsResponse";
 import { useNavigate } from "react-router-dom";
+import singupCss from "./Singup.css";
 
 const SingupComponent = () => {
   const [name, setName] = useState<string>("");
@@ -144,12 +144,12 @@ const SingupComponent = () => {
 
   return (
     <div>
-      <Box className="container" position="relative">
-        <Card className="card">
+      <Box className={singupCss.container} position="relative">
+        <Card className={singupCss.card}>
           <CardBody>
-            <div className="divImage">
+            <div className={singupCss.divImg}>
               <Image
-                className="image"
+                className={singupCss.img}
                 src="https://i.ibb.co/P1Z3w1N/apifacil.png"
                 alt="Green double couch with wooden legs"
                 borderRadius="lg"
@@ -158,9 +158,9 @@ const SingupComponent = () => {
             <Stack mt="6" spacing="3">
               <Heading size="md">Regista-se agora!</Heading>
               <Text>Crie uma conta e começe a usar</Text>
-              <FormControl className="form">
+              <FormControl className={singupCss.form}>
                 <div>
-                  <FormLabel className="formLabelSingup">
+                  <FormLabel className={singupCss.formLabelSingup}>
                     Nome completo
                   </FormLabel>
                   <Input
@@ -171,7 +171,7 @@ const SingupComponent = () => {
                   />
                 </div>
                 <div>
-                  <FormLabel className="formLabelSingup">Email</FormLabel>
+                  <FormLabel className={singupCss.formLabelSingup}>Email</FormLabel>
                   <Input
                     style={{ width: "20rem" }}
                     onChange={handleEmail}
@@ -180,7 +180,7 @@ const SingupComponent = () => {
                   />
                 </div>
                 <div>
-                  <FormLabel className="formLabelSingup">Telefone</FormLabel>
+                  <FormLabel className={singupCss.formLabelSingup}>Telefone</FormLabel>
                   <Input
                     style={{ width: "20rem" }}
                     onChange={handlePhone}
@@ -189,11 +189,11 @@ const SingupComponent = () => {
                   />
                 </div>
                 <div>
-                  <FormLabel className="formLabelSingup">Senha</FormLabel>
+                  <FormLabel className={singupCss.formLabelSingup}>Senha</FormLabel>
                   {PasswordInput(true)}
                 </div>
                 <div>
-                  <FormLabel className="formLabelSingup">
+                  <FormLabel className={singupCss.formLabelSingup}>
                     Confirmar senha
                   </FormLabel>
                   {PasswordInput(false)}
@@ -211,8 +211,8 @@ const SingupComponent = () => {
               </Text>
             </Stack>
           </CardBody>
-          <CardFooter className="login-cardFooter">
-            <ButtonGroup className="login-buttonGroup" spacing="2">
+          <CardFooter className={singupCss.loginCardFooter}>
+            <ButtonGroup className={singupCss.loginButtonGroup} spacing="2">
               <Button
                 isDisabled={passwordsMatch}
                 onClick={handleLogin}
