@@ -8,13 +8,11 @@ import {
   FormLabel,
   Input,
   Image,
-  Spinner,
   Heading,
   Stack,
   Text,
   Button,
   ButtonGroup,
-  Progress,
   InputRightElement,
   InputGroup,
   useToast,
@@ -23,6 +21,7 @@ import { useNavigate } from 'react-router-dom';
 import { authenticate } from "../../../../services/loginService/loginService";
 import { UserResponse } from "../../../../services/models/login/responses/userResponse";
 import singinCss from "./Singin.css";
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 
 const SinginComponent = () => {
   const [email, setEmail] = useState<string>('');
@@ -71,7 +70,7 @@ const SinginComponent = () => {
         />
         <InputRightElement width='4.5rem'>
           <Button h='1.75rem' size='sm' onClick={handleShowPassword}>
-            {show ? 'Hide' : 'Show'}
+            {show ? <IoEyeOffOutline size={23} /> : <IoEyeOutline size={23} />}
           </Button>
         </InputRightElement>
       </InputGroup>
