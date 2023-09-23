@@ -48,6 +48,7 @@ const UserHomeComponent = () => {
   const [integrationId, setIntegrationId] = useState<string>("");
   const [userInfo, setUserInfo] = useState<UserResponse>();
   const [accountDetails, setAccountDetails] = useState<AccountResponse>();
+  const [allAccounts, setAllAccounts] = useState([] as AccountResponse[]);
   const [code, setCode] = useState<string>();
   const [selectedAccountId, setSelectedAccountId] = useState<string>();
   const [selectedAccountName, setSelectedAccountName] = useState<string>();
@@ -66,6 +67,7 @@ const UserHomeComponent = () => {
     // Atualizar as informações com base nos dados recebidos
     setReceivedAccount(data);
     setAccountDetails(data);
+    setAllAccounts((prev) => [...prev, data]);
     setSelectedAccountName(data.name);
     setIntegrationId(data.integration.id);
     closeCreateAccountModal();
@@ -92,11 +94,12 @@ const UserHomeComponent = () => {
 
   useEffect(() => {
     // Coloque sua ação aqui
-    console.log(location.state);
+    console.log(location);
     setUserInfo(location.state.userResponse as UserResponse);
     setAccountDetails(
       location.state.userResponse.defaultAccount as AccountResponse
     )
+    setAllAccounts(location.state.userResponse.accounts);
 
     setIntegrationId(accountDetails?.integration.id as string)
     
@@ -148,7 +151,7 @@ const UserHomeComponent = () => {
               {selectedAccountName}
             </MenuButton>
             <MenuList>
-              {userInfo?.accounts.map((account) => (
+              {allAccounts.map((account) => (
                 <MenuItem
                   key={account.id}
                   minH="48px"

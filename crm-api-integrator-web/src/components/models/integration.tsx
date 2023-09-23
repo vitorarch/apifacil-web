@@ -1,4 +1,4 @@
 export enum Integration {
-    Kommo = 0
-  }
+  Kommo = 0
+}
   
