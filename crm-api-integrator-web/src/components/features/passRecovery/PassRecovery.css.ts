@@ -1,4 +1,4 @@
-const container = " flex box-border justify-center h-[40rem] mt-[5vh]";
+const container = " flex box-border justify-center mt-[20vh]";
 
 const passRecoveryCss = {
   container
