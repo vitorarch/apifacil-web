@@ -114,9 +114,15 @@ const SinginComponent = () => {
                 <FormLabel className={singinCss.loginLabel}>Senha</FormLabel>
                 { PasswordInput() }
               </FormControl>
-              <Text color="blue.600">
-                Esqueceu a senha? <br />
+              <Text className=" cursor-pointer hover:text-teal-700 underline underline-offset-2 w-[150px]" onClick={() => navigate("/reset-password")}>
+                Esqueceu a senha?
               </Text>
+              <div className=" flex gap-2">
+                <Text>Não possui conta?</Text>
+                <Text className=" cursor-pointer hover:text-teal-700 underline underline-offset-2"  onClick={() => navigate("/singup")}>
+                  Registre-se agora
+                </Text>
+              </div>
             </Stack>
           </CardBody>
           <CardFooter className={singinCss.loginFooter}>
