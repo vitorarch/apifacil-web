@@ -6,7 +6,7 @@ export interface AccountResponse {
     name: string;
     createdAt: Date;
     isActive: boolean;
-    createdBy: UserResponse
+    createdBy: UserResponse;
     integration: IntegrationResponse;
   }
   

@@ -5,6 +5,7 @@ import { UserResponse } from "../models/login/responses/userResponse";
 import { SingUpRequest } from "../models/login/requests/singUpRequest";
 import { ErrorsResponse } from "../models/base/errorsResponse";
 import { addScaleCorrector } from "framer-motion";
+import api from "..";
 
 // Função para fazer a chamada na API de autenticação
 export const authenticate = async (
@@ -16,10 +17,7 @@ export const authenticate = async (
       email: email,
       password: password,
     };
-    const response = await axios.post(
-      "https://localhost:7236/api/User/singin",
-      singInRequest
-    );
+    const response = await api.post("/api/User/singin", singInRequest);
     return response.data;
   } catch (error) {
     // Trata erros de conexão ou outros erros da API
@@ -43,8 +41,8 @@ export const register = async (
       phone: phone,
       password: password,
     };
-    const response = await axios.post(
-      "https://localhost:7236/api/User/singup",
+    const response = await api.post(
+      "/api/User/singup",
       singUpRequest
     );
     return response.data;

@@ -1,14 +1,15 @@
 import axios from "axios";
 import { BaseResponse } from "../models/base/baseResponse";
 import { CreateAccountRequest, KommoIntegrationRequest } from "../models/account/createAccountRequest";
+import api from "..";
 
 // Função para fazer a chamada na API de autenticação
 export const createAccount = async (
   createAccountRequest: CreateAccountRequest<KommoIntegrationRequest>
 ): Promise<BaseResponse> => {
   try {
-    const response = await axios.post(
-      "https://localhost:7236/api/account",
+    const response = await api.post(
+      "/api/account",
       createAccountRequest
     );
     return response.data;

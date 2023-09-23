@@ -1,5 +1,6 @@
 import axios from "axios";
 import { BaseResponse } from "../models/base/baseResponse";
+import api from "..";
 
 
 // Função para fazer a chamada na API de autenticação
@@ -8,8 +9,8 @@ export const getAccountById = async (
 ): Promise<BaseResponse> => {
   try {
     const encodedId = encodeURIComponent(accountId);
-    const response = await axios.get(
-      `https://localhost:7236/api/user/accounts/${encodedId}`,
+    const response = await api.get(
+      `/api/user/accounts/${encodedId}`,
     );
     return response.data;
   } catch (error) {
