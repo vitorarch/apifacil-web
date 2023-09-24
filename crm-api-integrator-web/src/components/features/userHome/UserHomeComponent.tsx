@@ -2,8 +2,6 @@ import {
   AddIcon,
   ArrowForwardIcon,
   ChevronDownIcon,
-  EmailIcon,
-  RepeatIcon,
 } from "@chakra-ui/icons";
 import {
   Button,
@@ -21,35 +19,32 @@ import {
   Card,
   CardBody,
   CardHeader,
-  FormLabel,
   Heading,
   StackDivider,
-  useDisclosure,
-  Center,
   CardFooter,
 } from "@chakra-ui/react";
-import { useState, useEffect, ChangeEvent, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import "./UserHomeComponent.css";
 import TextToCopy from "../../commom/TextToCopy/TextToCopy";
 import { useLocation, useNavigate } from "react-router-dom";
 import { UserResponse } from "../../../services/models/login/responses/userResponse";
-import AccountComponent from "../account/AccountComponent";
 import { getAccountById } from "../../../services/account/getAccountByIdService";
 import { AccountResponse } from "../../../services/models/account/accountResponse";
 import CreateAccountComponent from "../createAccount/CreateAccountComponent";
 import RetryIntegrationComponent from "../integration/RetryIntegrationComponent";
 import { IntegrationResponse } from "../../../services/models/integration/kommoIntegrationResponse";
 import WelcomeComponent from "../welcome/WelcomeComponent";
+import { IEndpoints, setDefaultEndpoints } from "../../models/home/home.interfaces";
 
 const UserHomeComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const [integrationId, setIntegrationId] = useState<string>("");
+  const [endpoints, setEndpoints] = useState([] as IEndpoints[]);
   const [userInfo, setUserInfo] = useState<UserResponse>();
   const [accountDetails, setAccountDetails] = useState<AccountResponse>();
   const [allAccounts, setAllAccounts] = useState([] as AccountResponse[]);
-  const [code, setCode] = useState<string>();
   const [selectedAccountId, setSelectedAccountId] = useState<string>();
   const [selectedAccountName, setSelectedAccountName] = useState<string>();
   const queryParams = new URLSearchParams(location.search);
@@ -66,7 +61,7 @@ const UserHomeComponent = () => {
   const handleUpdateAccountDetails = (data: AccountResponse) => {
     // Atualizar as informações com base nos dados recebidos
     setReceivedAccount(data);
-    setAccountDetails(data);
+    // // setAccountDetails(data);
     setAllAccounts((prev) => [...prev, data]);
     setSelectedAccountName(data.name);
     setIntegrationId(data.integration.id);
@@ -95,13 +90,13 @@ const UserHomeComponent = () => {
   useEffect(() => {
     // Coloque sua ação aqui
     console.log(location);
-    setUserInfo(location.state.userResponse as UserResponse);
-    setAccountDetails(
-      location.state.userResponse.defaultAccount as AccountResponse
-    )
-    setAllAccounts(location.state.userResponse.accounts);
+    const { userResponse } = location.state;
+    setUserInfo(userResponse as UserResponse);
+    // setAccountDetails(userResponse.defaultAccount as AccountResponse)
+    setAllAccounts(userResponse.accounts);
 
-    setIntegrationId(accountDetails?.integration.id as string)
+    setIntegrationId((userResponse as UserResponse).accounts[0].id);
+    setEndpoints(setDefaultEndpoints((userResponse as UserResponse).accounts[0].id));
     
     if (location.state.userResponse.defaultAccount) {
       setIntegrationId(
@@ -137,8 +132,9 @@ const UserHomeComponent = () => {
   const getAccount = async (accountId: string) => {
     const result = await getAccountById(accountId);
     if (result.isSuccessful) {
-      setAccountDetails(result.response as AccountResponse);
+      // setAccountDetails(result.response as AccountResponse);
       setIntegrationId((result.response as AccountResponse).integration.id);
+      setEndpoints(setDefaultEndpoints((result.response as AccountResponse).integration.id));
     }
   };
 
@@ -338,7 +334,7 @@ const UserHomeComponent = () => {
         <WelcomeComponent />
       )}
       <GridItem pl="2" area={"main"}>
-        { accountDetails ? (
+        { accountDetails && (
           <Card className="endpointsCard">
             <CardHeader color="telegram">
               <Text className="userInfo" fontSize="1.5rem">
@@ -347,76 +343,23 @@ const UserHomeComponent = () => {
             </CardHeader>
             <CardBody>
               <Stack divider={<StackDivider />} spacing="4">
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Companies
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/companies?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Leads
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/leads?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Events
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/events?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Pipelines
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/pipelines?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Sources
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/sources?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Status
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/statuses?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Tasks
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/tasks?i=${integrationId}`}
-                  />
-                </Box>
-                <Box>
-                  <Heading size="xs" textTransform="uppercase">
-                    Users
-                  </Heading>
-                  <TextToCopy
-                    text={`https://apifacil.azurewebsites.net/api/kommo/report/users?i=${integrationId}`}
-                  />
-                </Box>
+                { endpoints.map((e) => {
+                  const { name, integrationUrl } = e;
+                  return (
+                    <Box>
+                      <Heading size="xs" textTransform="uppercase">
+                        { name }
+                      </Heading>
+                      <TextToCopy
+                        text={ integrationUrl }
+                      />
+                    </Box>
+                  )
+                }) }
               </Stack>
             </CardBody>
           </Card>
-        ) : (
-          <Box></Box>
-        )}
+        ) }
       </GridItem>
     </Grid>
   );
