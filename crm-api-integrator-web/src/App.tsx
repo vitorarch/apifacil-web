@@ -18,7 +18,6 @@ const App: React.FC = () => {
   return (
     <ChakraProvider>
       <Router>
-        <Header />
         { /*
         <Flex className="mainContainer" p={4} bg="blackAlpha.800" color="white">
           { (path !== "/singin" || path !== "/singup") && (
