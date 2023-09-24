@@ -35,6 +35,7 @@ import RetryIntegrationComponent from "../integration/RetryIntegrationComponent"
 import { IntegrationResponse } from "../../../services/models/integration/kommoIntegrationResponse";
 import WelcomeComponent from "../welcome/WelcomeComponent";
 import { IEndpoints, setDefaultEndpoints } from "../../models/home/home.interfaces";
+import Header from "../header/header";
 
 const UserHomeComponent = () => {
   const navigate = useNavigate();
@@ -61,7 +62,7 @@ const UserHomeComponent = () => {
   const handleUpdateAccountDetails = (data: AccountResponse) => {
     // Atualizar as informações com base nos dados recebidos
     setReceivedAccount(data);
-    // // setAccountDetails(data);
+    setAccountDetails(data);
     setAllAccounts((prev) => [...prev, data]);
     setSelectedAccountName(data.name);
     setIntegrationId(data.integration.id);
@@ -92,7 +93,7 @@ const UserHomeComponent = () => {
     console.log(location);
     const { userResponse } = location.state;
     setUserInfo(userResponse as UserResponse);
-    // setAccountDetails(userResponse.defaultAccount as AccountResponse)
+    setAccountDetails(userResponse.defaultAccount as AccountResponse)
     setAllAccounts(userResponse.accounts);
 
     setIntegrationId((userResponse as UserResponse).accounts[0].id);
@@ -132,7 +133,7 @@ const UserHomeComponent = () => {
   const getAccount = async (accountId: string) => {
     const result = await getAccountById(accountId);
     if (result.isSuccessful) {
-      // setAccountDetails(result.response as AccountResponse);
+      setAccountDetails(result.response as AccountResponse);
       setIntegrationId((result.response as AccountResponse).integration.id);
       setEndpoints(setDefaultEndpoints((result.response as AccountResponse).integration.id));
     }
@@ -174,6 +175,8 @@ const UserHomeComponent = () => {
   };
 
   return (
+    <div>
+    <Header />
     <Grid
       templateAreas={`"header header"
                   "nav main"`}
@@ -341,7 +344,7 @@ const UserHomeComponent = () => {
                 Endpoints
               </Text>
             </CardHeader>
-            <CardBody>
+            <CardBody className=" overflow-y-auto max-h-[720px] scroll-auto mr-[2px]">
               <Stack divider={<StackDivider />} spacing="4">
                 { endpoints.map((e) => {
                   const { name, integrationUrl } = e;
@@ -362,6 +365,7 @@ const UserHomeComponent = () => {
         ) }
       </GridItem>
     </Grid>
+    </div>
   );
 };
 
