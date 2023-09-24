@@ -14,7 +14,7 @@ const WelcomeComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   return (
-    <Box>
+    <Box className=" flex box-border justify-center h-[25rem] w-screen mt-[10vh]">
       <Card align="center">
         <CardHeader display="flex" flexDirection="column" justifyContent="center" alignItems="center">
           <Heading size="md" m="1rem"> Voce ainda não possui nenhuma integração</Heading>
