@@ -2,23 +2,46 @@ import { Box, Button, ButtonGroup, Card, FormControl, FormLabel, Heading, Input,
 import { useState } from "react";
 import { IPasswords } from "../../models/login/user.interfaces";
 import passwordResetCss from "./PasswordReset.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
+import { resetPassword } from "../../../services/password/passwordReset";
 
 export default function PasswordReset() {
   const [show, setShow] = useState(false as boolean);
   const [passwords, setPasswords] = useState({} as IPasswords);
+  const [differentPasswords, setDifferentPasswords] = useState(false as boolean);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleShowPassword = () => setShow(!show);
 
   const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+    setDifferentPasswords(false);
     const { name, value } = event.target;
-    setPasswords({ ...passwords, [name]: value })
+    setPasswords({ ...passwords, [name]: value });
   }
 
-  const passwordReset = () => {
-    navigate("/");
+  const passwordReset = async () => {
+    const { password, confirmPassword } = passwords;
+    if ((!password && !confirmPassword) || password !== confirmPassword) {
+      setDifferentPasswords(true);
+    } else {
+      const result = await resetPassword(passwords.password, id as string);
+      console.log(result);
+      
+      if (result.isSuccessful) {
+        navigate('/home', { state: { userResponse: result.response } });
+      } else {
+        console.log("Error");
+        
+      }
+    }
+  }
+
+  const validatingIdenticalPasswords = (): boolean => {
+    const { password, confirmPassword } = passwords;
+    if (password !== confirmPassword || (!password && !confirmPassword)) return true
+    return false
   }
 
   function PasswordInput(isMainPassword: boolean) {
@@ -60,6 +83,11 @@ export default function PasswordReset() {
               </FormLabel>
               {PasswordInput(false)}
             </div>
+            <Stack className=" h-[25px]">
+              { differentPasswords ? (
+                <p className="text-red-700">Senhas são diferentes</p>
+              ) : <p></p> }
+            </Stack>
             <ButtonGroup spacing={2} className={passwordResetCss.limit}>
               <Button
                 onClick={ () => passwordReset() }

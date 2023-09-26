@@ -1,6 +1,5 @@
-import axios from "axios";
 import { BaseResponse } from "../models/base/baseResponse";
-import api from "..";
+import api from "../Api Conection/apiConection";
 
 
 // Função para fazer a chamada na API de autenticação
