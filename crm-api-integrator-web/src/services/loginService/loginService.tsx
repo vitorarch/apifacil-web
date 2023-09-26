@@ -1,11 +1,7 @@
-import axios from "axios";
 import { BaseResponse } from "../models/base/baseResponse";
 import { SingInRequest } from "../models/login/requests/singInResquest";
-import { UserResponse } from "../models/login/responses/userResponse";
 import { SingUpRequest } from "../models/login/requests/singUpRequest";
-import { ErrorsResponse } from "../models/base/errorsResponse";
-import { addScaleCorrector } from "framer-motion";
-import api from "..";
+import api from "../Api Conection/apiConection";
 
 // Função para fazer a chamada na API de autenticação
 export const authenticate = async (

@@ -1,7 +1,6 @@
-import axios from "axios";
 import { BaseResponse } from "../models/base/baseResponse";
 import { CreateAccountRequest, KommoIntegrationRequest } from "../models/account/createAccountRequest";
-import api from "..";
+import api from "../Api Conection/apiConection";
 
 // Função para fazer a chamada na API de autenticação
 export const createAccount = async (

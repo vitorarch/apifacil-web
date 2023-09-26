@@ -124,20 +124,20 @@ const SinginComponent = () => {
                 </Text>
               </div>
             </Stack>
+            <CardFooter className={singinCss.loginFooter}>
+              <ButtonGroup className={singinCss.loginBtn} spacing="2">
+                <Button
+                  onClick={handleLogin}
+                  variant="solid"
+                  colorScheme="teal"
+                  isLoading={isLoading}
+                  loadingText="Logging In"
+                >
+                  Login
+                </Button>
+              </ButtonGroup>
+            </CardFooter>
           </CardBody>
-          <CardFooter className={singinCss.loginFooter}>
-            <ButtonGroup className={singinCss.loginBtn} spacing="2">
-              <Button
-                onClick={handleLogin}
-                variant="solid"
-                colorScheme="teal"
-                isLoading={isLoading}
-                loadingText="Logging In"
-              >
-                Login
-              </Button>
-            </ButtonGroup>
-          </CardFooter>
         </Card>
       </Box>
     </div>

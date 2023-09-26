@@ -1,6 +1,7 @@
 import { Box, Button, ButtonGroup, Card, Heading, Input, Text } from "@chakra-ui/react";
 import { ChangeEvent, useEffect, useState } from "react";
 import passwordResetCss from "./PasswordReset.css";
+import { sendResetEmail } from "../../../services/password/passwordReset";
 
 export default function SendEmail() {
   const [email, setEmail] = useState('');
@@ -14,6 +15,7 @@ export default function SendEmail() {
     setIsLoading(true);
     setLoadingTime(60); // Iniciar a contagem regressiva com 60 segundos
     setContadorIniciado(true);
+    sendResetEmail(email);
   }
 
   const decrementarTempo = () => {

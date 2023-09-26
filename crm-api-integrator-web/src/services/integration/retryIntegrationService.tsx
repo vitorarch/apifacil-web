@@ -1,6 +1,6 @@
 import { BaseResponse } from "../models/base/baseResponse";
 import { RetryIntegrationRequest } from "../models/integration/retryIntegrationRequest";
-import api from "..";
+import api from "../Api Conection/apiConection";
 
 // Função para fazer a chamada na API de autenticação
 export const retryIntegration = async (

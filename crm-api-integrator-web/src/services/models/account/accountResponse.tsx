@@ -1,4 +1,4 @@
-import { IntegrationResponse, KommoIntegrationResponse } from "../integration/kommoIntegrationResponse";
+import { IntegrationResponse } from "../integration/kommoIntegrationResponse";
 import { UserResponse } from "../login/responses/userResponse";
 
 export interface AccountResponse {

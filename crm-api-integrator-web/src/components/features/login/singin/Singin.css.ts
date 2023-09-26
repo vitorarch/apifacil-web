@@ -1,5 +1,5 @@
-const container = " flex box-border justify-center h-[43rem] mt-[10vh]";
-const loginTab = " flex w-[20rem]";
+const container = " flex sm:box-border justify-center items-center sm:h-[43rem] sm:mt-[10vh] h-screen";
+const loginTab = " flex sm:w-[20rem] w-full w-full sm:shadow-md";
 const loginImg = " w-[100%] h-[12rem]";
 const loginLabel = " mt-[1rem]";
 const loginFooter = " flex justify-around m-[20px] mt-0";
