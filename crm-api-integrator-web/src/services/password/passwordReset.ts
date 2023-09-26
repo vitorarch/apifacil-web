@@ -20,7 +20,7 @@ export const sendResetEmail = async (email: string): Promise<BaseResponse> => {
 
 export const resetPassword = async (password: string, id: string): Promise<BaseResponse> => {
   try {
-    const response = await api.patch(`/api/User/reset-password/${id}`, password);
+    const response = await api.patch(`/api/User/reset-password/${id}`, {password});
     return response.data;
   } catch (error) {
     // Trata erros de conexão ou outros erros da API

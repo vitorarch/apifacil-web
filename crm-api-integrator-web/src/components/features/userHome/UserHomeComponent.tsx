@@ -52,6 +52,7 @@ const UserHomeComponent = () => {
   const [receivedData, setReceivedData] = useState<IntegrationResponse>();
   const [receivedAccount, setReceivedAccount] = useState<AccountResponse>();
   const [isCreateAccountOpen, setIsCreateAccountOpen] = useState(false);
+  const [isRetryIntegrationOpen, setIsRetryIntegrationOpen] = useState(false);
 
   const handleUpdateIntegrationDetails = async (data: IntegrationResponse) => {
     // Atualizar as informações com base nos dados recebidos
@@ -68,6 +69,12 @@ const UserHomeComponent = () => {
     setIntegrationId(data.integration.id);
     closeCreateAccountModal();
   };
+  const requestAccountById = async (accountId: string) => {
+    const result = await getAccountById(accountId);
+    if (result.isSuccessful) {
+      setAccountDetails(result.response);
+    }
+  }
 
   const closeModalRetry = () => {
     setIsRetryIntegrationOpen(false);
@@ -81,7 +88,6 @@ const UserHomeComponent = () => {
     setIsCreateAccountOpen(false);
   };
 
-  const [isRetryIntegrationOpen, setIsRetryIntegrationOpen] = useState(false);
 
   const openRetriIntegrationModel = () => {
     setIsRetryIntegrationOpen(true);
@@ -93,29 +99,17 @@ const UserHomeComponent = () => {
     console.log(location);
     const { userResponse } = location.state;
     setUserInfo(userResponse as UserResponse);
-    setAccountDetails(userResponse.defaultAccount as AccountResponse)
+    if (userResponse.accounts) {
+      requestAccountById(userResponse.accounts[0].id);
+    }
     setAllAccounts(userResponse.accounts);
+
+    console.log((userResponse as UserResponse).accounts[0].id);
+    
 
     setIntegrationId((userResponse as UserResponse).accounts[0].id);
     setEndpoints(setDefaultEndpoints((userResponse as UserResponse).accounts[0].id));
     
-    if (location.state.userResponse.defaultAccount) {
-      setIntegrationId(
-        location.state.userResponse.defaultAccount.integration.id as string
-      );
-      setSelectedAccountId(
-        location.state.userResponse.defaultAccount.id as string
-      );
-      setSelectedAccountName(
-        location.state.userResponse.defaultAccount.name as string
-      );
-      setSelectedAccountId(
-        location.state.userResponse.defaultAccount.id as string
-      );
-      setSelectedAccountName(
-        location.state.userResponse.defaultAccount.name as string
-      );
-    }
 
     return () => {};
   }, []);
@@ -145,7 +139,7 @@ const UserHomeComponent = () => {
         {accountDetails ? (
           <Menu>
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-              {selectedAccountName}
+              {accountDetails.name}
             </MenuButton>
             <MenuList>
               {allAccounts.map((account) => (

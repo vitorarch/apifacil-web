@@ -24,6 +24,18 @@ export const authenticate = async (
   }
 };
 
+export const loginById = async (id: string): Promise<BaseResponse> => {
+  try {
+    const response = await api.get(`/api/user/${id}`);
+    return response.data;
+  } catch (error) {
+    return {
+      isSuccessful: false,
+      failureMessage: "erro ao registrar usuario",
+    };
+  }
+}
+
 export const register = async (
   name: string,
   email: string,
