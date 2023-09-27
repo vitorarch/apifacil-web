@@ -148,7 +148,6 @@ const UserHomeComponent = () => {
   if (!userInfo) return <Spinner />
   return (
     <div>
-    <Header userName={ userInfo?.name as string } />
     <Grid
       templateAreas={`"header header"
                   "nav main"`}
