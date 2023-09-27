@@ -37,18 +37,6 @@ export const setDefaultEndpoints = (integrationId: string): IEndpoints[] => {
     {
       name: "Users",
       integrationUrl: `${defaultUrl}/users?i=${integrationId}`
-    },
-    {
-      name: "Users",
-      integrationUrl: `${defaultUrl}/users?i=${integrationId}`
-    },
-    {
-      name: "Users",
-      integrationUrl: `${defaultUrl}/users?i=${integrationId}`
-    },
-    {
-      name: "Users",
-      integrationUrl: `${defaultUrl}/users?i=${integrationId}`
     }
   ]
 }
