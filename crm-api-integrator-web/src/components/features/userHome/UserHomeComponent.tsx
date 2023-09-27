@@ -104,8 +104,6 @@ const UserHomeComponent = () => {
 
 
   useEffect(() => {
-    // Coloque sua ação aqui
-
     requestUserInfos();
 
     return () => {};

@@ -60,12 +60,12 @@ interface CreateAccountProps {
   //   const [activeStep, setActiveStep] = useState(0);
   const [accountName, setAccountName] = useState("");;
   const [clientId, setClientId] = useState<string>("");
-  const [clientSecret, setClientSecret] = useState<string>("");
+  const [clientSecret, setClientSecret] = useState("" as string);
   const [code, setCode] = useState<string>("");
   const [subdomain, setSubdomain] = useState<string>("");
   const [email, setEmail] = useState<string>("");
-  const [usersAccessRights, setUsersAccessRights] = useState<string[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [usersAccessRights, setUsersAccessRights] = useState([] as string[]);
+  const [isLoading, setIsLoading] = useState(false as boolean);
   const [errors, setErros] = useState<Error[]>([]);
   const initialRef = React.useRef(null);
   const finalRef = React.useRef(null);
@@ -120,8 +120,9 @@ interface CreateAccountProps {
   };
 
   const handleCreateAccount = async () => {
+    setIsLoading(true);
     const accountRequest = createAccountRequest();
-    var response = await createAccount(accountRequest);
+    const response = await createAccount(accountRequest);
     if (response.isSuccessful) {
       const accountResponse = response.response as AccountResponse;
 
@@ -133,13 +134,14 @@ interface CreateAccountProps {
         isClosable: true,
       });
 
-      onUpdate(accountResponse as AccountResponse)
+      onUpdate(accountResponse as AccountResponse);
 
     } else {
       const errors = response.response as Error[];
       setErros(errors);
       showErrorToasts(errors);
     }
+    setIsLoading(false);
   };
 
   const showErrorToasts = (errors: Error[]) => {
@@ -248,7 +250,7 @@ interface CreateAccountProps {
           />
         </FormControl>
         <ModalFooter>
-          <Button colorScheme="teal" mr={3} onClick={handleCreateAccount}>
+          <Button isLoading={ isLoading } loadingText="Criando..." colorScheme="teal" mr={3} onClick={handleCreateAccount}>
             Criar
           </Button>
           <Button marginRight="0.65rem" onClick={handlePreviousStep}>Anterior</Button>
