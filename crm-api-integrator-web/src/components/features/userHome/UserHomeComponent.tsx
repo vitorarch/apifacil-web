@@ -318,7 +318,7 @@ const UserHomeComponent = () => {
                 Endpoints
               </Text>
             </CardHeader>
-            <CardBody className=" overflow-y-auto max-h-[720px] scroll-auto mr-[2px]">
+            <CardBody className=" overflow-y-auto max-h-[730px] scroll-auto mr-[2px]">
               <Stack divider={<StackDivider />} spacing="4">
                 { endpoints.map((e) => {
                   const { name, integrationUrl } = e;
