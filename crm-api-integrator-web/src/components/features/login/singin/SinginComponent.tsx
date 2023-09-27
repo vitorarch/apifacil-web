@@ -37,8 +37,9 @@ const SinginComponent = () => {
     const result = await authenticate(email, password);
     setIsLoading(false);
     if (result.isSuccessful) {
-      const userResponse = result.response as UserResponse;
-      navigate('/home', { state: userResponse });
+      const {  id } = result.response.userResponse as UserResponse;
+      
+      navigate('/home', { state: { id } });
       // Login bem-sucedido, faça qualquer ação necessária
     } else {
       setErrorMessage(result.failureMessage as string);

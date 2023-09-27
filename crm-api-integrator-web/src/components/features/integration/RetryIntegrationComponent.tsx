@@ -55,7 +55,7 @@ const RetryIntegrationComponent: React.FC<RetryIntegrationProps> = ({ integratio
 
   const handleRetryIntegration = async () => {
     setIsLoading(true);
-    const response  = await retryIntegration(integrationId, newClientId, newClientSecret, code, newSubdomain)
+    const response  = await retryIntegration(integrationId, newClientId, newClientSecret, code, newSubdomain);
     setIsLoading(false);
     if (response.isSuccessful) {
       const integration = response.response as IntegrationResponse;
@@ -68,7 +68,7 @@ const RetryIntegrationComponent: React.FC<RetryIntegrationProps> = ({ integratio
         isClosable: true,
       });
 
-      onUpdate(integration)
+      onUpdate(integration);
 
     } else {
       toast({

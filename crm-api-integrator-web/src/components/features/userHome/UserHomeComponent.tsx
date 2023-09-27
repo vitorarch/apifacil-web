@@ -22,6 +22,7 @@ import {
   Heading,
   StackDivider,
   CardFooter,
+  Spinner,
 } from "@chakra-ui/react";
 import { useState, useEffect, useCallback } from "react";
 import "./UserHomeComponent.css";
@@ -36,21 +37,18 @@ import { IntegrationResponse } from "../../../services/models/integration/kommoI
 import WelcomeComponent from "../welcome/WelcomeComponent";
 import { IEndpoints, setDefaultEndpoints } from "../../models/home/home.interfaces";
 import Header from "../header/header";
+import { loginById } from "../../../services/loginService/loginService";
 
 const UserHomeComponent = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { state } = useLocation();
 
-  const [integrationId, setIntegrationId] = useState<string>("");
   const [endpoints, setEndpoints] = useState([] as IEndpoints[]);
   const [userInfo, setUserInfo] = useState<UserResponse>();
   const [accountDetails, setAccountDetails] = useState<AccountResponse>();
   const [allAccounts, setAllAccounts] = useState([] as AccountResponse[]);
-  const [selectedAccountId, setSelectedAccountId] = useState<string>();
-  const [selectedAccountName, setSelectedAccountName] = useState<string>();
-  const queryParams = new URLSearchParams(location.search);
+  //const queryParams = new URLSearchParams(location.search);
   const [receivedData, setReceivedData] = useState<IntegrationResponse>();
-  const [receivedAccount, setReceivedAccount] = useState<AccountResponse>();
   const [isCreateAccountOpen, setIsCreateAccountOpen] = useState(false);
   const [isRetryIntegrationOpen, setIsRetryIntegrationOpen] = useState(false);
 
@@ -62,19 +60,29 @@ const UserHomeComponent = () => {
 
   const handleUpdateAccountDetails = (data: AccountResponse) => {
     // Atualizar as informações com base nos dados recebidos
-    setReceivedAccount(data);
     setAccountDetails(data);
     setAllAccounts((prev) => [...prev, data]);
-    setSelectedAccountName(data.name);
-    setIntegrationId(data.integration.id);
     closeCreateAccountModal();
   };
-  const requestAccountById = async (accountId: string) => {
+  
+  const requestUserInfos = useCallback(async () => {
+    const result = await loginById(state.id as string);
+    if (result.isSuccessful) {
+      setUserInfo(result.response);
+      if (result.response.accounts.length !== 0) {
+        requestAccountById(result.response.accounts[0].id);
+        setAllAccounts(result.response.accounts);
+        setEndpoints(setDefaultEndpoints(result.response.accounts[0].id));
+      }
+    }
+  }, [])
+
+  const requestAccountById = useCallback(async (accountId: string) => {
     const result = await getAccountById(accountId);
     if (result.isSuccessful) {
       setAccountDetails(result.response);
     }
-  }
+  }, [])
 
   const closeModalRetry = () => {
     setIsRetryIntegrationOpen(false);
@@ -94,44 +102,12 @@ const UserHomeComponent = () => {
   };
 
 
+
   useEffect(() => {
-    // Coloque sua ação aqui
-    console.log(location);
-    const { userResponse } = location.state;
-    setUserInfo(userResponse as UserResponse);
-    if (userResponse.accounts) {
-      requestAccountById(userResponse.accounts[0].id);
-    }
-    setAllAccounts(userResponse.accounts);
-
-    console.log((userResponse as UserResponse).accounts[0].id);
-    
-
-    setIntegrationId((userResponse as UserResponse).accounts[0].id);
-    setEndpoints(setDefaultEndpoints((userResponse as UserResponse).accounts[0].id));
-    
+    requestUserInfos();
 
     return () => {};
   }, []);
-
-  const changeAccountHandler = useCallback(
-    async (accountId: string, accountName: string) => {
-      // Faça o que for necessário com o ID da conta selecionado
-      setSelectedAccountId(accountId);
-      setSelectedAccountName(accountName);
-      await getAccount(accountId);
-    },
-    []
-  );
-
-  const getAccount = async (accountId: string) => {
-    const result = await getAccountById(accountId);
-    if (result.isSuccessful) {
-      setAccountDetails(result.response as AccountResponse);
-      setIntegrationId((result.response as AccountResponse).integration.id);
-      setEndpoints(setDefaultEndpoints((result.response as AccountResponse).integration.id));
-    }
-  };
 
   const MyMenu = () => {
     return (
@@ -141,12 +117,13 @@ const UserHomeComponent = () => {
             <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
               {accountDetails.name}
             </MenuButton>
-            <MenuList>
+            <MenuList className=" p-2">
               {allAccounts.map((account) => (
                 <MenuItem
                   key={account.id}
                   minH="48px"
-                  onClick={() => changeAccountHandler(account.id, account.name)}
+                  onClick={() => requestAccountById(account.id)}
+                  backgroundColor={ account.id === accountDetails.id ? " #cbd5e1" : "" }
                 >
                   <Image
                     boxSize="2rem"
@@ -168,9 +145,9 @@ const UserHomeComponent = () => {
     );
   };
 
+  if (!userInfo) return <Spinner />
   return (
     <div>
-    <Header />
     <Grid
       templateAreas={`"header header"
                   "nav main"`}
@@ -338,7 +315,7 @@ const UserHomeComponent = () => {
                 Endpoints
               </Text>
             </CardHeader>
-            <CardBody className=" overflow-y-auto max-h-[720px] scroll-auto mr-[2px]">
+            <CardBody className=" overflow-y-auto max-h-[730px] scroll-auto mr-[2px]">
               <Stack divider={<StackDivider />} spacing="4">
                 { endpoints.map((e) => {
                   const { name, integrationUrl } = e;
